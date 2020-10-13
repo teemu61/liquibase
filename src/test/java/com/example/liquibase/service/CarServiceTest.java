@@ -26,7 +26,12 @@ class CarServiceTest {
     @Test
     void name1() {
         Iterable<Car> all = carService.getAll();
-        all.forEach(i -> System.out.println("id: "+i.getId() +", malli: "+i.getModel() +", hinta: " +i.getPrice() ) );
-        all.forEach(i -> assertEquals("volvo", i.getModel()));
+
+        for(Car c: all) {
+            System.out.println("id: "+c.getId() +", malli: "+c.getModel() +", hinta: " +c.getPrice());
+            assertEquals("volvo", c.getModel());
+            assertEquals("alu",c.getTires().get(0).getModel());
+        }
+
     }
 }
