@@ -1,3 +1,7 @@
 databaseChangeLog:
   - include:
       file: db/changelog/01-insert-car.xml
+  - include:
+      file: db/changelog/02-insert-price.xml
+  - include:
+      file: db/changelog/03-update-price.xml

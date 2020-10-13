@@ -4,8 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import lombok.Data;
 import org.hibernate.annotations.GeneratorType;
 
+
+@Data
 @Entity
 public class Car {
 
@@ -15,19 +18,7 @@ public class Car {
 
     private String model;
 
-    public Long getId() {
-        return id;
-    }
+    private Integer price;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
 }
