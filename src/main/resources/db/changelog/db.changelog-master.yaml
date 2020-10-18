@@ -1,3 +1,5 @@
 databaseChangeLog:
   - include:
       file: db/changelog/01-initial.xml
+  - include:
+      file: db/changelog/02-add_tire.xml

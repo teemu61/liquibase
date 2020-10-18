@@ -1,7 +1,12 @@
 package com.example.liquibase.service;
 
 import com.example.liquibase.domain.Car;
+import com.example.liquibase.domain.Tire;
 import com.example.liquibase.repository.CarRepository;
+import com.example.liquibase.repository.TireRepository;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,23 +20,41 @@ import static org.junit.jupiter.api.Assertions.*;
 class CarServiceTest {
 
     CarRepository carRepository;
-    CarService carService;
+    TireRepository tireRepository;
 
     @Autowired
-    public CarServiceTest(CarRepository carRepository, CarService carService) {
+    public CarServiceTest(CarRepository carRepository, TireRepository tireRepository ) {
         this.carRepository = carRepository;
-        this.carService = carService;
+        this.tireRepository = tireRepository;
+
     }
 
     @Test
-    void name1() {
-        Iterable<Car> all = carService.getAll();
+    void name() {
 
-        for(Car c: all) {
-            System.out.println("id: "+c.getId() +", malli: "+c.getModel() +", hinta: " +c.getPrice());
-            assertEquals("volvo", c.getModel());
-            assertEquals("alu",c.getTires().get(0).getModel());
-        }
+        Iterable<Car> all = carRepository.findAll();
+        all.forEach(i -> {
+          System.out.println("car id: "+i.getId());
+          carRepository.delete(i);
+          carRepository.flush();
+        });
 
+        Car car = new Car();
+        car.setModel("volvo");
+        car.setPrice(100);
+
+        Tire tire = new Tire();
+        tire.setCar(car);
+        tire.setModel("nokia");
+        tire.setPrice(30);
+        List<Tire> tires = new ArrayList<>();
+        tires.add(tire);
+        tireRepository.saveAndFlush(tire);
+
+        car.setTires(tires);
+        Car save = carRepository.saveAndFlush(car);
+
+        assertEquals(1,1);
     }
+
 }
